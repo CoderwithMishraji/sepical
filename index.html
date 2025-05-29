@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Countdown</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    #countdown {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown">Loading...</div>
+
+  <script>
+    // ✅ Target time set only ONCE (e.g. 30 seconds from now)
+    const target = new Date();
+      target.setHours(24, 0, 0, 0); // Midnight (24:00 means next day 00:00)
+ // 30 sec ahead
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        window.location.href = "https://coderwithmishraji.github.io/birthday/";
+        clearInterval(intervalId);
+        return;
+      }
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        ` ${hours}h ${minutes}m ${seconds}s left`;
+    }
+
+    const intervalId = setInterval(updateCountdown, 1000);
+    updateCountdown(); // initial call
+  </script>
+</body>
+</html>
